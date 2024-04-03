@@ -5,8 +5,12 @@ def xor_block(message_block: bytes, key: bytes) -> bytes:
 def encrypt(message: bytes, key: bytes) -> bytes:
     """Encrypt the message using XOR block cipher."""
     cipher_text = b''
+
     for i in range(0, len(message), 16):
         message_block = message[i:i+16]
+        print('message_block', message_block)
+        print(key)
+        print(len(message_block) // len(key))
         cipher_text += xor_block(message_block, key * (len(message_block) // len(key)))
     return cipher_text
 
@@ -19,14 +23,10 @@ def decrypt(cipher_text: bytes, key: bytes) -> bytes:
     return decrypted_text
 
 
+
+cipher = "b\\x12'&73#/! b$/a\\x01./175#\"#.bsrsvns"
 message = 'This is the unencrypted message!'
-cipher = "b'\\x12'&73#/! b$/a\\x01./175#\"#.bsrsvns'"
 key = xor_block(message.encode('utf16'),cipher.encode("utf16"))
-print('Message:', message)
-print('Messa16:', message.encode('utf16'))
-print ('ciphers:', cipher)
-print ('ciphe16:', cipher.encode('utf16'))
-print('key :',key)
 message2 =  xor_block(cipher.encode('utf16'),key)
 print('messacd:' , message2)
 print('messadc:' , message2.decode('utf16'))
@@ -38,15 +38,3 @@ print(cipher2)
 
 print('validação mensagem', (message2==message.encode('utf16')))
 print('validação ciphe', (xor_block(message.encode('utf16'),key)==cipher))
-
-
-
-#print(xor_block(message.encode('utf16'),cipher.encode("utf16")))
-#print('decrypt', decrypt(cipher.encode('utf16'),key))
-
-
-#print('encrypt', encrypt(str(message).encode('utf16'),key))
-#print('encrypt', encrypt(cipher.encode('utf16'),key))
-
-#print('encrypt', encrypt(message,key))
-#print('encrypt', encrypt(cipher,key))
