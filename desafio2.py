@@ -24,7 +24,7 @@ def decrypt(cipher_text: bytes, key: bytes) -> bytes:
 
 
 
-cipher = "b\\x12'&73#/! b$/a\\x01./175#\"#.bsrsvns"
+cipher = "'\x12'&73#/! b$/a\x01./175#\"#.bsrsvns'"
 message = 'This is the unencrypted message!'
 key = xor_block(message.encode('utf16'),cipher.encode("utf16"))
 message2 =  xor_block(cipher.encode('utf16'),key)
@@ -34,7 +34,8 @@ print('ciphecd:' , xor_block(message2,key))
 print('ciphedc:' , xor_block(message2,key))
 cipher2 =  xor_block(message.encode('utf16'),key).decode('utf16')
 print(cipher)
-print(cipher2)
 
+print(cipher2)
+print(cipher==cipher2)
 print('validação mensagem', (message2==message.encode('utf16')))
-print('validação ciphe', (xor_block(message.encode('utf16'),key)==cipher))
+print('validação ciphe', (xor_block(message.encode('utf16'),key).decode('utf16')==cipher))
